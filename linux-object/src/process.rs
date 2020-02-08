@@ -2,6 +2,7 @@
 
 use crate::error::*;
 use crate::fs::*;
+use crate::net::Socket;
 use alloc::vec::Vec;
 use alloc::{
     boxed::Box,
@@ -223,6 +224,21 @@ impl LinuxProcess {
     pub fn get_file_like(&self, fd: FileDesc) -> LxResult<Arc<dyn FileLike>> {
         let inner = self.inner.lock();
         inner.files.get(&fd).cloned().ok_or(LxError::EBADF)
+    }
+
+    /// Add a socket to the file descriptor table.
+    pub fn add_socket(&self, _socket: Box<dyn Socket>) -> LxResult<FileDesc> {
+        unimplemented!()
+    }
+
+    /// Get the `Socket` with given `fd`.
+    pub fn get_socket(&self, _fd: FileDesc) -> LxResult<&mut Box<dyn Socket>> {
+        unimplemented!()
+        //        let file = self
+        //            .get_file_like(fd)?
+        //            .downcast_arc::<Socket>()
+        //            .map_err(|_| LxError::EBADF)?;
+        //        Ok(file)
     }
 
     /// Close file descriptor `fd`.
