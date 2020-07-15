@@ -16,3 +16,10 @@ BadAccessTest.NormalMappedAddressChannelWriteSucceeds
 BadAccessTest.SyscallNumTest
 BadAccessTest.PciCfgPioRwChannelReadHandle
 BadAccessTest.ChannelReadHandle
+
+#ConditionalVariableTest.* 3/3
+ConditionalVariableTest.BroadcastSignalThreadWait
+
+ConditionalVariableTest.SignalThreadWait
+
+ConditionalVariableTest.ConditionalVariablesTimeout
