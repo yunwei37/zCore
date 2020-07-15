@@ -9,3 +9,10 @@ Bti.GetInfoTest
 Bti.NoDelayedUnpin
 Bti.DecommitRace
 
+#BadAccessTest.* 0/6
+BadAccessTest.InvalidMappedAddressFails
+BadAccessTest.KernelMappedAddressChannelWriteFails
+BadAccessTest.NormalMappedAddressChannelWriteSucceeds
+BadAccessTest.SyscallNumTest
+BadAccessTest.PciCfgPioRwChannelReadHandle
+BadAccessTest.ChannelReadHandle
