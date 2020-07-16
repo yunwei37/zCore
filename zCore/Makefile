@@ -74,7 +74,7 @@ debugrun: $(QEMU_DISK)
 justrun: $(QEMU_DISK)
 	$(qemu) $(qemu_opts)
 
-build-test: build
+build-test: build $(QEMU_DISK)
 	cp ../prebuilt/zircon/x64/core-tests.zbi $(ESP)/EFI/zCore/fuchsia.zbi
 	echo 'cmdline=LOG=warn:userboot=test/core-standalone-test:userboot.shutdown:core-tests=$(test_filter)' >> $(ESP)/EFI/Boot/rboot.conf
 

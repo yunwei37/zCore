@@ -134,7 +134,7 @@ jobs:
       - name: Build zCore
         run: |
           cd zCore
-          make test mode=release test_filter='Bti.Pin'
+          make build-test mode=release
           cd ..
       - name: Run core-tests
         run: |
