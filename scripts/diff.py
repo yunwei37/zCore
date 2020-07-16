@@ -7,10 +7,11 @@ from email.mime.multipart import MIMEMultipart
 from email.header import Header
 
 # ================
-BASE_USER = "/home/own/"
-LAST_RESULT_FILE = BASE_USER + "zCore/scripts/test-result-last.txt"
-CURR_RESULT_FILE = BASE_USER + "zCore/scripts/test-result.txt"
-DIFF_FILE = BASE_USER + "zCore/scripts/diff.txt"
+BASE_USER = "../zCore"
+LAST_RESULT_FILE = "test-result-last.txt"
+CURR_RESULT_FILE = "test-result.txt"
+DIFF_PATH = "../../diff/"
+DIFF_FILE = "diff.txt"
 TEMP_DIFF = "" #BASE_USER + ""
 # ================
 
@@ -27,6 +28,8 @@ def compare_diff():
                     for line in curr.readlines() :
                         curr_set.add(line)
 
+                    if not os.path.exists(DIFF_PATH):
+                        os.system('mkdir '+DIFF_PATH)
                     with open(DIFF_FILE, 'w') as f:
 
                         # if len(last_lines) == len(curr_lines):
@@ -56,8 +59,8 @@ def compare_diff():
                                 f.write(case.strip() + "    测试后更新为此\n")
                             f.write('当前总共 '+str(len(curr_set))+'个测例 \n新增 测试 : '+str(len(curr_set)-len(last_set))+'\n变化测例 : '+str(len(diff_set)))
 
-                    os.chdir(BASE_USER + 'zCore/scripts/')
-                    TEMP_DIFF = '/home/zcore/diff/diff'+str(datetime.now().strftime("%Y-%m-%d-%H:%M:%S"))+'.txt'
+                    # os.chdir(BASE_USER + 'zCore/scripts/')
+                    TEMP_DIFF = '../../diff/diff'+str(datetime.now().strftime("%Y-%m-%d-%H:%M:%S"))+'.txt'
                     os.system('mv diff.txt '+TEMP_DIFF)
                     return TEMP_DIFF
                     
@@ -101,7 +104,7 @@ def send_mail(file_name):
 
 
 
-os.chdir(BASE_USER + 'zCore/scripts/')
+## os.chdir(BASE_USER + 'zCore/scripts/')
 if os.path.exists(LAST_RESULT_FILE):
     diff_name = compare_diff()
     os.system("mv test-result.txt test-result-last.txt")

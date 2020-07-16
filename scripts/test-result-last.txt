@@ -6,6 +6,13 @@ Bti.Resize FINISHED
 Bti.Clone FINISHED
 Bti.GetInfoTest FINISHED
 Bti.NoDelayedUnpin PANICKED
+Bti.DecommitRace PANICKED
+BadAccessTest.InvalidMappedAddressFails PANICKED
+BadAccessTest.KernelMappedAddressChannelWriteFails PANICKED
+BadAccessTest.NormalMappedAddressChannelWriteSucceeds FINISHED
+BadAccessTest.SyscallNumTest FINISHED
+BadAccessTest.PciCfgPioRwChannelReadHandle FINISHED
+BadAccessTest.ChannelReadHandle PANICKED
 ConditionalVariableTest.BroadcastSignalThreadWait FINISHED
 ConditionalVariableTest.SignalThreadWait FINISHED
 ConditionalVariableTest.ConditionalVariablesTimeout FINISHED

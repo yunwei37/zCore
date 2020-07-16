@@ -61,7 +61,7 @@ for line in lines:
     resultfile.flush()
 
 
-os.chdir('/home/zcore/zCore/scripts/')
+# os.chdir('/home/zcore/zCore/scripts/')
 os.system('python3 diff.py')
 
 passed = []
