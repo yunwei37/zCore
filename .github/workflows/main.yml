@@ -140,4 +140,4 @@ jobs:
         run: |
           cd scripts
           pip3 install pexpect
-          python3 core-tests.py
+          python3 core-tests-qemu.py
