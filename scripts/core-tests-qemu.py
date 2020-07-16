@@ -1,11 +1,14 @@
 import pexpect
 import sys
 import time
+import os
+import re
 
 TIMEOUT = 10
 ZCORE_PATH = '../zCore'
 OUTPUT_FILE = 'test-output.txt'
 RESULT_FILE = 'test-result.txt'
+STATISTIC_FILE = 'test-statistic.txt'
 CHECK_FILE = 'test-check-passed.txt'
 TEST_CASE_FILE = 'testcases.txt'
 ALL_CASES = 'all-test-cases.txt'
@@ -58,20 +61,28 @@ for line in lines:
     resultfile.flush()
 
 
-# passed = []
-# failed = []
-# passed_case = set()
-# with open(OUTPUT_FILE, "r") as f:
-#     for line in f.readlines():
-#         if line.startswith('[       OK ]'):
-#             passed += line
-#             passed_case.add(line[13:].split(' ')[0])
-#         elif line.startswith('[  FAILED  ]') and line.endswith(')\n'):
-#             failed += line
+os.chdir('/home/zcore/zCore/scripts/')
+os.system('python3 diff.py')
 
-# with open(RESULT_FILE, "w") as f:
-#     f.writelines(passed)
-#     f.writelines(failed)
+passed = []
+failed = []
+passed_case = set()
+
+# see https://stackoverflow.com/questions/59379174/ignore-ansi-colors-in-pexpect-response
+ansi_escape = re.compile(r"\x1B[@-_][0-?]*[ -/]*[@-~]")
+
+with open(OUTPUT_FILE, "r") as f:
+    for line in f.readlines():
+        line=ansi_escape.sub('',line)
+        if line.startswith('[       OK ]'):
+            passed += line
+            passed_case.add(line[13:].split(' ')[0])
+        elif line.startswith('[  FAILED  ]') and line.endswith(')\n'):
+            failed += line
+
+with open(STATISTIC_FILE, "w") as f:
+    f.writelines(passed)
+    f.writelines(failed)
 
 # with open(CHECK_FILE, 'r') as f:
 #     check_case = set([case.strip() for case in f.readlines()])
