@@ -87,6 +87,13 @@ def send_mail(file_name):
     # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
     att1["Content-Disposition"] = 'attachment; filename="result.txt"'
     message.attach(att1)
+
+    # 构造附件2，传送当前目录下的 test.txt 文件
+    att2 = MIMEText(open('test-statistic.txt', 'rb').read(), 'base64', 'utf-8')
+    att2["Content-Type"] = 'application/octet-stream'
+    # 这里的filename可以任意写，写什么名字，邮件中显示什么名字
+    att2["Content-Disposition"] = 'attachment; filename="statistic.txt"'
+    message.attach(att2)
     
     # 第三方 SMTP 服务
     mail_host="smtp.qq.com"  #设置服务器
