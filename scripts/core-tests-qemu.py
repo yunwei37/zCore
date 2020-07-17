@@ -51,10 +51,14 @@ for line in lines:
     with open("../zCore/target/x86_64/release/esp/EFI/Boot/rboot.conf","w") as f:
         f.writelines(content)
 
+    # for kvm
     # child = pexpect.spawn("qemu-system-x86_64 -smp 1 -machine q35 -cpu Haswell,+smap,-check,-fsgsbase -drive if=pflash,format=raw,readonly,file=../rboot/OVMF.fd -drive format=raw,file=fat:rw:../zCore/target/x86_64/release/esp -drive format=qcow2,file=../zCore/target/x86_64/release/disk.qcow2,id=disk,if=none -device ich9-ahci,id=ahci -device ide-drive,drive=disk,bus=ahci.0 -serial mon:stdio -m 4G -nic none -device isa-debug-exit,iobase=0xf4,iosize=0x04 -accel kvm -cpu host,migratable=no,+invtsc -display none -nographic",
     #                       timeout=TIMEOUT, encoding='utf-8')
+
+    # no kvm
     child = pexpect.spawn("qemu-system-x86_64 -smp 1 -machine q35 -cpu Haswell,+smap,-check,-fsgsbase -drive if=pflash,format=raw,readonly,file=../rboot/OVMF.fd -drive format=raw,file=fat:rw:../zCore/target/x86_64/release/esp -drive format=qcow2,file=../zCore/target/x86_64/release/disk.qcow2,id=disk,if=none -device ich9-ahci,id=ahci -device ide-drive,drive=disk,bus=ahci.0 -serial mon:stdio -m 4G -nic none -device isa-debug-exit,iobase=0xf4,iosize=0x04 -display none -nographic",
                           timeout=TIMEOUT, encoding='utf-8')
+                          
     child.logfile = logfile
     index = child.expect(['finished!', 'panicked', pexpect.EOF, pexpect.TIMEOUT])
     result = ['FINISHED', 'PANICKED', 'EOF', 'TIMEOUT'][index]
