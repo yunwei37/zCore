@@ -111,8 +111,9 @@ jobs:
           command: bench
 
   core-test:
-    #runs-on: [self-hosted,local-qemu]
-    runs-on: ubuntu-20.04
+    # runs-on: [self-hosted,local-qemu]
+    # runs-on: ubuntu-20.04
+    runs-on: [self-hosted,ARM64]
     steps:
       - uses: actions/checkout@v2
       - name: Pull prebuilt images
