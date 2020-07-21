@@ -134,7 +134,7 @@ jobs:
       - name: Install QEMU
         run: |
           sudo apt update
-          sudo apt install qemu-system-x86
+          sudo apt install qemu-system-x86 -y
       - name: Build zCore
         run: |
           cd zCore
