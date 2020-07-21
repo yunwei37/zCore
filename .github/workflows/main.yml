@@ -143,5 +143,5 @@ jobs:
       - name: Run core-tests
         run: |
           cd scripts
-          pip3 install pexpect
+          pip3 install pexpect -i https://pypi.tuna.tsinghua.edu.cn/simple/
           python3 core-tests-qemu.py
