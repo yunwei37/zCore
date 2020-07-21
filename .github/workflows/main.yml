@@ -119,8 +119,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Pull prebuilt images
         run: |
-          git lfs
-          git lfs pull -X prebuilt/zircon/x64/bringup.zbi prebuilt/zircon/arm64
+          git lfs pull -X prebuilt/zircon/x64/bringup.zbi
       - name: Checkout submodules
         shell: bash
         run: |
