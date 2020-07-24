@@ -90,7 +90,7 @@ def write_arg(index,line,):
     with open("../zCore/target/x86_64/release/esp"+str(index)+"/EFI/Boot/rboot.conf","w") as f:
         f.writelines(content)
 
-os.chdir("/home/own/Work Realm/test/4realm/zCore/scripts/")
+
 lines = []
 with open(ALL_CASES, "r") as f:
     lines = f.readlines()
