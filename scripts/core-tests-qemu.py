@@ -3,6 +3,7 @@ import sys
 import time
 import os
 import re
+import multiprocessing
 
 TIMEOUT = 10
 ZCORE_PATH = '../zCore'
@@ -12,6 +13,13 @@ STATISTIC_FILE = 'test-statistic.txt'
 CHECK_FILE = 'test-check-passed.txt'
 TEST_CASE_FILE = 'testcases.txt'
 ALL_CASES = 'all-test-cases.txt'
+
+PROCESSES = 10
+PREBATCH = 3
+
+IMG = '../zCore/target/x86_64/release/disk.qcow2'
+ESP = '../zCore/target/x86_64/release/esp'
+
 
 
 class Tee:
@@ -31,73 +39,80 @@ class Tee:
     def flush(self):
         self.file.flush()
 
+def qcow2_duplication(num):
+    if not os.path.exists("../zCore/target/x86_64/release/disk/"):
+        print("disk 文件夹不存在")
+        os.system("mkdir ../zCore/target/x86_64/release/disk/")
+    for i in range(0,PREBATCH):
+        for j in range(0,num):
+            os.system("cp "+IMG+" ../zCore/target/x86_64/release/disk/disk"+str(i)+"_"+str(j)+".qcow2")
 
-lines = []
-with open(ALL_CASES, "r") as f:
-    lines = f.readlines()
-logfile = Tee(OUTPUT_FILE, 'w')
-resultfile = Tee(RESULT_FILE, 'w')
-for line in lines:
-    if line.startswith('#') or line.startswith('\n'):
-        continue
+def esp_duplication(num):
+    for i in range(0,num):
+        os.system("cp -r "+ESP+" ../zCore/target/x86_64/release/esp"+str(i))
+
+def running(index_num,line):
+    line = line.strip()
+    i = index_num%PROCESSES
+    batch = int(index_num/PROCESSES)%PREBATCH
+    print('[running]    '+str(index_num)+'    '+line)
+    write_arg(i,line)
+
+    child = pexpect.spawn("qemu-system-x86_64 \
+                                -smp 1 -machine q35 \
+                                -cpu Haswell,+smap,-check,-fsgsbase \
+                                -drive if=pflash,format=raw,readonly,file=../rboot/OVMF.fd \
+                                -drive format=raw,file=fat:rw:../zCore/target/x86_64/release/esp"+str(i)+" \
+                                -drive format=qcow2,file=../zCore/target/x86_64/release/disk/disk"+str(batch)+"_"+str(i)+".qcow2,id=disk,if=none \
+                                -device ich9-ahci,id=ahci \
+                                -device ide-drive,drive=disk,bus=ahci.0 \
+                                -serial mon:stdio -m 4G -nic none \
+                                -device isa-debug-exit,iobase=0xf4,iosize=0x04 \
+                                -display none -nographic",
+                                timeout=TIMEOUT, encoding='utf-8')
+                                # -accel kvm -cpu host,migratable=no,+invtsc  \ kvm 把这个加上
+
+    index = child.expect(['PASSED','FAILED','panicked', pexpect.EOF, pexpect.TIMEOUT,'Running 0 test from 0 test case'])
+    result = ['PASSED','FAILED','PANICKED', 'EOF', 'TIMEOUT','UNKNOWN'][index]
+    print('[result]    '+str(index_num)+'    '+line+'    '+result)
+    with open(RESULT_FILE, "a") as f:
+        f.write('[result]    '+str(index_num)+'    '+line+'    '+result+'\n')
+
+def write_arg(index,line,):
     content=[]
-    with open("../zCore/target/x86_64/release/esp/EFI/Boot/rboot.conf","r") as f:
+    with open("../zCore/target/x86_64/release/esp"+str(index)+"/EFI/Boot/rboot.conf","r") as f:
         content = f.readlines()
     i=0
     while i < len(content):
         if content[i].startswith("cmdline"):
             content[i] = "cmdline=LOG=warn:userboot=test/core-standalone-test:userboot.shutdown:core-tests="+line
         i = i + 1
-    with open("../zCore/target/x86_64/release/esp/EFI/Boot/rboot.conf","w") as f:
+    with open("../zCore/target/x86_64/release/esp"+str(index)+"/EFI/Boot/rboot.conf","w") as f:
         f.writelines(content)
 
-    # for kvm
-    # child = pexpect.spawn("qemu-system-x86_64 -smp 1 -machine q35 -cpu Haswell,+smap,-check,-fsgsbase -drive if=pflash,format=raw,readonly,file=../rboot/OVMF.fd -drive format=raw,file=fat:rw:../zCore/target/x86_64/release/esp -drive format=qcow2,file=../zCore/target/x86_64/release/disk.qcow2,id=disk,if=none -device ich9-ahci,id=ahci -device ide-drive,drive=disk,bus=ahci.0 -serial mon:stdio -m 4G -nic none -device isa-debug-exit,iobase=0xf4,iosize=0x04 -accel kvm -cpu host,migratable=no,+invtsc -display none -nographic",
-    #                       timeout=TIMEOUT, encoding='utf-8')
+os.chdir("/home/own/Work Realm/test/4realm/zCore/scripts/")
+lines = []
+with open(ALL_CASES, "r") as f:
+    lines = f.readlines()
 
-    # no kvm
-    child = pexpect.spawn("qemu-system-x86_64 -smp 1 -machine q35 -cpu Haswell,+smap,-check,-fsgsbase -drive if=pflash,format=raw,readonly,file=../rboot/OVMF.fd -drive format=raw,file=fat:rw:../zCore/target/x86_64/release/esp -drive format=qcow2,file=../zCore/target/x86_64/release/disk.qcow2,id=disk,if=none -device ich9-ahci,id=ahci -device ide-drive,drive=disk,bus=ahci.0 -serial mon:stdio -m 4G -nic none -device isa-debug-exit,iobase=0xf4,iosize=0x04 -display none -nographic",
-                          timeout=TIMEOUT, encoding='utf-8')
-                          
-    child.logfile = logfile
-    index = child.expect(['finished!', 'panicked', pexpect.EOF, pexpect.TIMEOUT])
-    result = ['FINISHED', 'PANICKED', 'EOF', 'TIMEOUT'][index]
+with open(RESULT_FILE, "w") as f:
+    f.write('测例统计:\n')
 
-    resultfile.write(line.strip()+" "+result+"\n")
-    resultfile.flush()
+qcow2_duplication(PROCESSES)
+esp_duplication(PROCESSES)
 
+pool = multiprocessing.Pool(processes = PROCESSES)
+start = time.time() 
 
-# os.chdir('/home/zcore/zCore/scripts/')
+for (n,line) in enumerate(lines):
+    if line.startswith('#') or line.startswith('\n'):
+        continue
+
+    pool.apply_async(running,(n,line,))
+
+pool.close()
+pool.join()   #调用join之前，先调用close函数，否则会出错。执行完close后不会有新的进程加入到pool,join函数等待所有子进程结束
+end = time.time()
+print('用时--times{:.3f}'.format(end-start))
+
 os.system('python3 diff.py')
-
-passed = []
-failed = []
-passed_case = set()
-
-# see https://stackoverflow.com/questions/59379174/ignore-ansi-colors-in-pexpect-response
-ansi_escape = re.compile(r"\x1B[@-_][0-?]*[ -/]*[@-~]")
-
-with open(OUTPUT_FILE, "r") as f:
-    for line in f.readlines():
-        line=ansi_escape.sub('',line)
-        if line.startswith('[       OK ]'):
-            passed += line
-            passed_case.add(line[13:].split(' ')[0])
-        elif line.startswith('[  FAILED  ]') and line.endswith(')\n'):
-            failed += line
-
-with open(STATISTIC_FILE, "w") as f:
-    f.writelines(passed)
-    f.writelines(failed)
-
-# with open(CHECK_FILE, 'r') as f:
-#     check_case = set([case.strip() for case in f.readlines()])
-
-# not_passed = check_case - passed_case
-# if not_passed:
-#     print('=== Failed cases ===')
-#     for case in not_passed:
-#         print(case)
-#     exit(1)
-# else:
-#     print('All checked case passed!')

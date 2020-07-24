@@ -1,4 +1,3 @@
-# Bti.* 8/9 ✔️
 Bti.Create
 Bti.Pin
 Bti.PinContiguous
@@ -8,54 +7,28 @@ Bti.Clone
 Bti.GetInfoTest
 Bti.NoDelayedUnpin
 Bti.DecommitRace
-
-#BadAccessTest.* 0/6 ✔️
 BadAccessTest.InvalidMappedAddressFails
 BadAccessTest.KernelMappedAddressChannelWriteFails
 BadAccessTest.NormalMappedAddressChannelWriteSucceeds
 BadAccessTest.SyscallNumTest
 BadAccessTest.PciCfgPioRwChannelReadHandle
 BadAccessTest.ChannelReadHandle
-
-#ConditionalVariableTest.* 3/3 ✔️
 ConditionalVariableTest.BroadcastSignalThreadWait
-
 ConditionalVariableTest.SignalThreadWait
-
 ConditionalVariableTest.ConditionalVariablesTimeout
-
-#C11MutexTest.* /5 ✔️
 C11MutexTest.MultiThreadedContention
-
 C11MutexTest.TryMutexMultiThreadedContention
-
 C11MutexTest.InitalizeLocalMutex
-
 C11MutexTest.StaticInitalizerSameBytesAsAuto
-
 C11MutexTest.TimeoutElapsed
-
-#C11ThreadTest.* /6 ✔️
 C11ThreadTest.ThreadLocalErrno
-
 C11ThreadTest.NullNameThreadShouldSucceed
-
 C11ThreadTest.CreateAndVerifyThreadHandle
-
 C11ThreadTest.DetachedThreadKeepsRunning
-
 C11ThreadTest.LongNameSucceeds
-
 C11ThreadTest.SelfDetachAndFree
-
-
-#ChannelInternalTest.* /2 ✔️
 ChannelInternalTest.CallFinishWithoutPreviouslyCallingCallReturnsBadState
-
 ChannelInternalTest.TransferChannelWithPendingCallInSourceProcess
-
-
-#ChannelTest.* /38 ✔️
 ChannelTest.CreateIsOkAndEndpointsAreRelated
 ChannelTest.IsWriteableByDefault
 ChannelTest.WriteToEndpointCausesOtherToBecomeReadable
@@ -94,9 +67,6 @@ ChannelTest.NestingIsOk
 ChannelTest.WriteSelfHandleReturnsNotSupported
 ChannelTest.ReadEtcHandleInfoValidation
 ChannelTest.ReadAndWriteWithMultipleSizes
-
-
-#ChannelWriteEtcTest.* /27 ✔️
 ChannelWriteEtcTest.MultipleHandlesSomeInvalidResultsReportedCorrectly
 ChannelWriteEtcTest.ImproperlyInitalizedResultsArgReportedBackAsOriginallyInitalized
 ChannelWriteEtcTest.FailureDoesNotResultInReceivedPacket
@@ -124,27 +94,14 @@ ChannelWriteEtcTest.RemovingSomeHandleRightsShouldSucceed
 ChannelWriteEtcTest.SameHandleRightsBitsShouldSucceed
 ChannelWriteEtcTest.SameHandleRightsFlagShouldSucceed
 ChannelWriteEtcTest.HandleWithoutDuplicateRightsMoveOpSucceedsDuplicateOpFails
-
-#CppThreadTest.* /1 ✔️
 CppThreadTest.CreateAndVerifyThreadHandle
-
-#CpuMaskProfile.* /2 ✔️
 CpuMaskProfile.EmptyMaskIsValid
 CpuMaskProfile.ApplyProfile
-
-#ClockTest.* /2 ✔️
 ClockTest.ClockMonotonic
 ClockTest.DeadlineAfter
-
-#DefaultExceptionHandlerTest.* 2/2 ✔️
 DefaultExceptionHandlerTest.UnhandledHardwareException
 DefaultExceptionHandlerTest.UnhandledPolicyException
-
-
-#DebugLogTest.* /1 ✔️
 DebugLogTest.WriteRead
-
-#ExecutableTlsTest.* 12/12 ✔️
 ExecutableTlsTest.BasicInitalizersInThread
 ExecutableTlsTest.BasicInitalizersInMain
 ExecutableTlsTest.ArrayInitializerInThread
@@ -157,8 +114,6 @@ ExecutableTlsTest.AlignmentInitializerInThread
 ExecutableTlsTest.AlignmentInitializierInMain
 ExecutableTlsTest.ArrayInitializerSpamThread
 ExecutableTlsTest.ArrayInitializierSpamMain
-
-#EventPairTest.* /8 ✔️
 EventPairTest.HandlesNotInvalid
 EventPairTest.HandleRightsAreCorrect
 EventPairTest.KoidsAreCorrect
@@ -167,8 +122,6 @@ EventPairTest.SignalEventPairAndClearVerifySignals
 EventPairTest.SignalPeerAndVerifyRecived
 EventPairTest.SignalPeerThenCloseAndVerifySignalReceived
 EventPairTest.SignalingClosedPeerReturnsPeerClosed
-
-#FifoTest.* /9 ✔️
 FifoTest.InvalidParametersReturnOutOfRange
 FifoTest.EndpointsAreRelated
 FifoTest.EmptyQueueReturnsErrShouldWait
@@ -178,11 +131,7 @@ FifoTest.FifoOrderIsPreserved
 FifoTest.PartialWriteQueuesElementsThatFit
 FifoTest.IndividualReadsPreserveOrder
 FifoTest.EndpointCloseSignalsPeerClosed
-
-#FPUTest.* /1 ✔️
 FPUTest.LongComputeLoop
-
-#FutexTest.* /14 ✔️
 FutexTest.WaitValueMismatch
 FutexTest.WaitTimeout
 FutexTest.WaitTimeoutElapsed
@@ -197,41 +146,21 @@ FutexTest.RequeueUnqueuedOnTimeout
 FutexTest.ThreadSuspended
 FutexTest.MisalignedFutextAddr
 FutexTest.EventSignaling
-
-#HandleCloseTest.* /3 ✔️
-
 HandleCloseTest.Many
 HandleCloseTest.ManyInvalidHandlesShouldNotFail
 HandleCloseTest.ManyDuplicateTest
-
-
-#HandleDup.* /4 ✔️
-
 HandleDup.ReplaceSuccessOrigInvalid
-
 HandleDup.ReplaceFailureBothInvalid
-
 HandleDup.Replace
-
 HandleDup.Duplicate
-
-
-#HandleInfoTest.* /4 ✔️
 HandleInfoTest.DupAndInfoRights
 HandleInfoTest.RelatedKoid
 HandleInfoTest.DuplicateRights
 HandleInfoTest.ReplaceRights
-
-#HandleTransferTest.* 2/2 ✔️
 HandleTransferTest.OverChannelThenRead
 HandleTransferTest.CancelsWait
-
-
-#HandleWaitTest.* 2/2 ✔️
 HandleWaitTest.HandleWaitTest
 HandleWaitTest.HandleWaitMultipleThreads
-
-#InterruptTest.* 1/8 ✔️
 InterruptTest.NonBindablePort
 InterruptTest.BindTriggeredIrqToPorts
 InterruptTest.BindPort
@@ -239,12 +168,9 @@ InterruptTest.UnBindPort
 InterruptTest.VirtualInterrupts
 InterruptTest.WaitThreadFunctionsAfterSuspendResume
 InterruptTest.MAYBE_BindVcpuTest
-
 InterruptTest.UnableToBindVirtualInterruptToVcpu
 InterruptTest.MAYBE_UnableToBindToVcpuAfterPort
 InterruptTest.NullOutputTimestamp
-
-#JobTest.* 9/28 ✔️
 JobTest.BasicTest
 JobTest.CreateTest
 JobTest.CreateMissingRightsTest
@@ -266,21 +192,13 @@ JobTest.OneCriticalProcessKillsOneJob
 JobTest.ManyCriticalProcessesKillOneJob
 JobTest.OneCriticalProcessKillsJobTree
 JobTest.OneCriticalProcessKillsOneJobIfRetcodeNonzero
-
 JobTest.CriticalProcessNotInAncestor
 JobTest.CriticalProcessAlreadySet
 JobTest.SetJobOomKillBit
 JobTest.WaitTest
 JobTest.MaxHeightSmoke
 JobTest.GetRuntimeTest
-
-
-
-
-#--------------------------------------------------------
-#JobGetInfoTest.* 6/39 ✔️
 JobGetInfoTest.InfoJobProcessesPartiallyUnmappedBufferIsInvalidArgs
-
 JobGetInfoTest.InfoJobProcessesGetChild
 JobGetInfoTest.InfoJobChildJobsGetChild
 JobGetInfoTest.InfoJobProcessesOnSelfSuceeds
@@ -293,14 +211,6 @@ JobGetInfoTest.InfoJobProcessesNullActualAndAvailSucceeds
 JobGetInfoTest.InfoJobProcessesInvalidBufferPointerFails
 JobGetInfoTest.InfoJobProcessesBadActualgIsInvalidArg
 JobGetInfoTest.InfoJobProcessesBadAvailIsInvalidArg
-
-
-
-
-
-
-#MemoryMappingTest.* 5/8 
-
 MemoryMappingTest.MmapZerofilledTest
 MemoryMappingTest.MmapLenTest
 MemoryMappingTest.MmapOffsetTest
@@ -309,38 +219,25 @@ MemoryMappingTest.MmapFlagsTest
 MemoryMappingTest.AddressSpaceLimitsTest
 MemoryMappingTest.MmapProtTest
 MemoryMappingTest.MprotectTest
-
-#MsiTest.* 3/3
 MsiTest.AllocateSyscall
 MsiTest.CreateSyscallArgs
 MsiTest.Msi
-
-
-#ObjectWaitManyTest.* 5/5
 ObjectWaitManyTest.TooManyObjects
 ObjectWaitManyTest.InvalidHandle
 ObjectWaitManyTest.WaitForEventsSignaled
 ObjectWaitManyTest.WaitForEventsThenSignal
 ObjectWaitManyTest.TransientSignalsNotReturned
-
-#ObjectChildTest.* 1/1
 ObjectChildTest.InvalidHandleReturnsBadHandle
-
-#ObjectGetInfoTest.* 4/4
 ObjectGetInfoTest.OpenValidHandleSuceeds
 ObjectGetInfoTest.ClosedValidHandleFails
 ObjectGetInfoTest.HandleCountCorrectness
 ObjectGetInfoTest.InvalidHandleFails
-
-#ObjectWaitOneTest.* 6/6
 ObjectWaitOneTest.WaitForEventSignaled
 ObjectWaitOneTest.WaitForEventTimeout
 ObjectWaitOneTest.EmptySignalSet
 ObjectWaitOneTest.WaitForEventTimeoutPreSignalClear
 ObjectWaitOneTest.WaitForEventThenSignal
 ObjectWaitOneTest.TransientSignalsNotReturned
-
-#Pager.*  0/92
 Pager.SinglePageTest_vmar
 Pager.SinglePageTest_vmo
 Pager.UncommittedSinglePageTest_vmar
@@ -433,11 +330,7 @@ Pager.SupplyAfterFail
 Pager.FailErrorCode
 Pager.WritingZeroFork
 Pager.CleanThreadKill
-
-
-PortTest.* 10/18 
 PortTest.AsyncWaitInvalidOption
-
 PortTest.QueueNullPtrReturnsInvalidArgs
 PortTest.QueueWaitVerifyUserPacket
 PortTest.PortTimeout
@@ -449,23 +342,16 @@ PortTest.AsyncWaitCloseOrder
 PortTest.AsyncWaitEventRepeat
 PortTest.AsyncWaitEventManyAllProcessed
 PortTest.EventAsyncSignalWaitSingle
-
 PortTest.ChannelAsyncWaitOnExistingStateIsNotified
 PortTest.CancelEventKey
 PortTest.CancelEventKeyAfter
 PortTest.ThreadEvents
 PortTest.Timestamp
 PortTest.CloseQueueRace
-
-#PortStressTest.* 0/3 
 PortStressTest.WaitSignalCancel
 PortStressTest.SignalCloseWait
 PortStressTest.CloseWaitRace
-
-
-#ProcessTest.* 11/28
 ProcessTest.ProcessWaitAsyncCancelSelf
-
 ProcessTest.LongNameSucceeds
 ProcessTest.EmptyNameSucceeds
 ProcessTest.MiniProcessSanity
@@ -491,42 +377,24 @@ ProcessTest.SuspendTwiceBeforeCreatingThreads
 ProcessTest.SuspendWithDyingThread
 ProcessTest.GetTaskRuntime
 ProcessTest.ProcessStartWriteThreadState
-
 ProcessTest.ForbidDestroyRootVmar
 ProcessHwTraceContextIdProperty
-
-ProcessDebugUtilsTest.* 1/1
 ProcessDebugUtilsTest.XorShiftIsOk
-
-
-ProcessDebugTest.* 4/4
 ProcessDebugTest.ReadMemoryAtOffsetIsOk
 ProcessDebugTest.WriteMemoryAtOffsetIsOk
 ProcessDebugTest.ReadMemoryAtInvalidOffsetReturnsErrorNoMemory
 ProcessDebugTest.WriteAtInvalidOffsetReturnsErrorNoMemory
-
-
-ProcessDebugVDSO.* 0/1 
 ProcessDebugVDSO.WriteToVdsoAddressReturnsAccessDenied
-
-Pthread.* 6/6
 Pthread.Basic
 Pthread.SelfMainThread
 Pthread.BigStackSize
 Pthread.GetstackMainThread
 Pthread.GetstackOtherThread
 Pthread.GetstackOtherThreadExplicitSize
-
-
-PThreadBarrierTest.* 3/3
 PThreadBarrierTest.SingleThreadWinsBarrierObject
 PThreadBarrierTest.SingleThreadWinsBarrierObjectResetsBetweenIterations
 PThreadBarrierTest.InitWithNoThreadsReturnsInval
-
-PthreadTls.* 1/1
 PthreadTls.PthreadTls
-
-ProcessGetInfoTest.*  24/69
 ProcessGetInfoTest.InfoHandleBasicOnSelfSuceeds
 ProcessGetInfoTest.InfoHandleBasicInvalidHandleFails
 ProcessGetInfoTest.InfoHandleBasicNullAvailSucceeds
@@ -593,23 +461,13 @@ ProcessGetInfoTest.InfoProcessThreadsNullActualAndAvailSucceeds
 ProcessGetInfoTest.InfoProcessThreadsInvalidBufferPointerFails
 ProcessGetInfoTest.InfoProcessThreadsBadActualgIsInvalidArg
 ProcessGetInfoTest.InfoProcessThreadsBadAvailIsInvalidArg
-
-
-ProgressiveCloneDiscardTests.* 2/2
 ProgressiveCloneDiscardTests.ProgressiveCloneClose
 ProgressiveCloneDiscardTests.ProgressiveCloneTruncate
-
-ProfileTest.* 0/5
 ProfileTest.CreateProfileWithDefaultInitializedProfileInfoIsError 
 ProfileTest.CreateProfileWithMutuallyExclusiveFlagsIsInvalidArgs 
 ProfileTest.CreateProfileWithNoProfileInfoIsInvalidArgs 
 ProfileTest.CreateProfileWithInvalidHandleIsBadHandle 
 ProfileTest.CreateProfileWithNullProfileIsInvalidArgs 
-
-
-
-
-Resource.* 0/11
 Resource.ProbeAddressSpace
 Resource.BasicActions 
 Resource.InvalidArgs 
@@ -621,9 +479,6 @@ Resource.VmoCreationUnaligned
 Resource.VmoReplaceAsExecutable 
 Resource.CreateResourceSlice 
 Resource.Ioports 
-
-
-#SocketTest.* 26/26
 SocketTest.EndpointsAreRelated
 SocketTest.EmptySocketShouldWait
 SocketTest.WriteReadDataVerify
@@ -650,14 +505,8 @@ SocketTest.ReadIntoNullBuffer
 SocketTest.ReadIntoBadBuffer
 SocketTest.WriteFromNullBuffer
 SocketTest.WriteFromBadBuffer
-
-
-
-#StackTest.* 2/2
 StackTest.MainThreadStack
 StackTest.ThreadStack
-
-#StreamTestCase.* 11/11
 StreamTestCase.Create
 StreamTestCase.Seek
 StreamTestCase.ReadV
@@ -669,8 +518,6 @@ StreamTestCase.WriteVAt
 StreamTestCase.ReadVectorAlias
 StreamTestCase.Append
 StreamTestCase.ExtendFillsWithZeros
-
-#SyncCompletionTest.* 11/11
 SyncCompletionTest.Initializer
 SyncCompletionTest.SingleWait
 SyncCompletionTest.MultiWait
@@ -682,19 +529,12 @@ SyncCompletionTest.ResetCycleSingleWait
 SyncCompletionTest.ResetCycleMultiWait
 SyncCompletionTest.SignalRequeue
 SyncCompletionTest.SpuriousWakeupHandled
-
-#SyncCondition.* 2/2
 SyncCondition.ConditionTest
 SyncCondition.TimeoutTest
-
-#SyncMutex.* 3/4
 SyncMutex.NoRecursion
 SyncMutex.Mutexes
 SyncMutex.TryMutexes
 SyncMutex.TimeoutElapsed
-
-
-#SystemEvent.* 0/9
 SystemEvent.RetrieveOom
 SystemEvent.CannotSignalOomFromUserspace
 SystemEvent.RetrieveMempressureCritical
@@ -704,8 +544,6 @@ SystemEvent.CannotSignalMempressureWarningFromUserspace
 SystemEvent.RetrieveMempressureNormal
 SystemEvent.CannotSignalMempressureNormalFromUserspace
 SystemEvent.ExactlyOneMemoryEventSignaled
-
-#SchedulerProfileTest.*  0/14
 SchedulerProfileTest.CreateProfileWithDefaultPriorityIsOk
 SchedulerProfileTest.CreateProfileWithLowestPriorityIsOk
 SchedulerProfileTest.CreateProfileWithLowPriorityIsOk
@@ -720,17 +558,13 @@ SchedulerProfileTest.CreateProfileWithPeriodBelowDeadlineIsInvalidArgs
 SchedulerProfileTest.CreateProfileOnNonRootJobIsAccessDenied
 SchedulerProfileTest.CreateProfileWithNonZeroOptionsIsInvalidArgs
 SchedulerProfileTest.SetThreadPriorityIsOk
-
-#Threads.* 6/41
 Threads.ThreadStartWithZeroInstructionPointer
-
 Threads.Basics
 Threads.InvalidRights
 Threads.Detach
 Threads.EmptyNameSucceeds
 Threads.LongNameSucceeds
 Threads.ThreadStartOnInitialThread
-
 Threads.NonstartedThread
 Threads.InfoTaskStatsFails
 Threads.GetLastScheduledCpu
@@ -764,8 +598,6 @@ Threads.WritingArmFlagsRegister
 Threads.WriteReadDebugRegisterState
 Threads.DebugRegistersValidation
 Threads.X86AcFlagUserCopy
-
-#TaskGetInfoTest.* 12/14
 TaskGetInfoTest.InfoStatsUnstartedSuceeds
 TaskGetInfoTest.InfoStatsSmokeTest
 TaskGetInfoTest.InfoTaskStatsInvalidHandleFails
@@ -780,8 +612,6 @@ TaskGetInfoTest.InfoTaskStatsThreadHandleIsBadHandle
 TaskGetInfoTest.InfoTaskRuntimeWrongType
 TaskGetInfoTest.InfoTaskStatsZeroSizedBufferIsTooSmall
 TaskGetInfoTest.InfoTaskRuntimeInvalidHandle
-
-#ThreadGetInfoTest.* 28/41
 ThreadGetInfoTest.InfoHandleBasicOnSelfSuceeds
 ThreadGetInfoTest.InfoHandleBasicInvalidHandleFails
 ThreadGetInfoTest.InfoHandleBasicNullAvailSucceeds
@@ -823,15 +653,8 @@ ThreadGetInfoTest.InfoThreadStatsBadActualgIsInvalidArg
 ThreadGetInfoTest.InfoThreadStatsBadAvailIsInvalidArg
 ThreadGetInfoTest.InfoThreadStatsZeroSizedBufferFails
 ThreadGetInfoTest.InfoThreadExceptionReportInvalidHandleFails
-
-#Thread.* 1/1
 Thread.SuspendAfterDeath
-#TicksTest.* 1/1
 TicksTest.ElapsedTimeUsingTicks
-
-
-#Vmar.*  10/35
-
 Vmar.DestroyTest
 Vmar.BasicAllocateTest
 Vmar.MapInCompactTest
@@ -866,12 +689,7 @@ Vmar.PartialUnmapAndWrite
 Vmar.PartialUnmapWithVmarOffset
 Vmar.AllowFaultsTest
 Vmar.ConcurrentUnmapReadMemory
-
-
-
-#VmoTestCase.*  7/29
 VmoTestCase.ReadOnlyMap
-
 VmoTestCase.Create
 VmoTestCase.ReadWriteBadLen
 VmoTestCase.ReadWrite
@@ -879,7 +697,6 @@ VmoTestCase.ReadWriteRange
 VmoTestCase.Map
 VmoTestCase.MapRead
 VmoTestCase.ParallelRead
-
 VmoTestCase.NoPermMap
 VmoTestCase.NoPermProtect
 VmoTestCase.Resize
@@ -899,9 +716,6 @@ VmoTestCase.DecommitMisaligned
 VmoTestCase.ResizeHazard
 VmoTestCase.CompressedContiguous
 VmoTestCase.UncachedContiguous
-
-
-#VmarGetInfoTest.* 19/21
 VmarGetInfoTest.InfoHandleBasicOnSelfSuceeds
 VmarGetInfoTest.InfoHandleBasicInvalidHandleFails
 VmarGetInfoTest.InfoHandleBasicNullAvailSucceeds
@@ -923,22 +737,16 @@ VmarGetInfoTest.InfoVmarProcessHandleIsBadHandle
 VmarGetInfoTest.InfoVmarThreadHandleIsBadHandle
 VmarGetInfoTest.InfoHandleBasicZeroSizedBufferFails
 VmarGetInfoTest.InfoVmarZeroSizedBufferFails
-
-#VersionTest.* 4/4
 VersionTest.ZxStringView
 VersionTest.StdStringView
 VersionTest.StdString
 VersionTest.CXX14StdString
-
-#VmoCloneTestCase.* 6/6
 VmoCloneTestCase.SizeAlign
 VmoCloneTestCase.NameProperty
 VmoCloneTestCase.Commit
 VmoCloneTestCase.Decommit
 VmoCloneTestCase.Rights
 VmoCloneTestCase.NoResize
-
-#VmoClone2TestCase.* 36/39
 VmoClone2TestCase.Info
 VmoClone2TestCase.Read
 VmoClone2TestCase.CloneVmoWrite
@@ -978,9 +786,6 @@ VmoClone2TestCase.ParentStartLimitRegression
 VmoClone2TestCase.ManyCloneMappingOffset
 VmoClone2TestCase.NoPhysical
 VmoClone2TestCase.NoSnapshotPager
-
-
-#VmoZeroTestCase.* 15/15
 VmoZeroTestCase.UnalignedSubPage
 VmoZeroTestCase.UnalignedCommitted
 VmoZeroTestCase.UnalignedUnCommitted
@@ -996,8 +801,6 @@ VmoZeroTestCase.ChildZeroThenWrite
 VmoZeroTestCase.Nested
 VmoZeroTestCase.ZeroLengths
 VmoZeroTestCase.ResizeOverHiddenMarkers
-
-#VmoSliceTestCase.* 15/16
 VmoSliceTestCase.WriteThrough
 VmoSliceTestCase.DecommitParent
 VmoSliceTestCase.Nested
@@ -1014,16 +817,10 @@ VmoSliceTestCase.RoundUpSizePhysical
 VmoSliceTestCase.RoundUpSize
 VmoSliceTestCase.NotCoWType
 VmoSliceTestCase.Pin
-
-#VmoSignalTestCase.* 3/3
 VmoSignalTestCase.SignalSanity
 VmoSignalTestCase.ChildSignalClone
 VmoSignalTestCase.ChildSignalMap
-
-#VmoCloneResizeTests.* 2/2
 VmoCloneResizeTests.ResizeChild
 VmoCloneResizeTests.ResizeOriginal
-
-#VmoCloneDisjointClonesTests.* 2/2
 VmoCloneDisjointClonesTests.DisjointCloneEarlyClose
 VmoCloneDisjointClonesTests.DisjointCloneLateClose
