@@ -112,9 +112,9 @@ jobs:
 
   core-test:
     # runs-on: [self-hosted,local-qemu]
-    # runs-on: ubuntu-20.04
+    runs-on: ubuntu-20.04
     # runs-on: [self-hosted,ARM64]
-    runs-on: [self-hosted,docker]
+    # runs-on: [self-hosted,docker]
     steps:
       - uses: actions/checkout@v2
       - name: Pull prebuilt images
@@ -126,11 +126,11 @@ jobs:
           auth_header="$(git config --local --get http.https://github.com/.extraheader)"
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
-      # - uses: actions-rs/toolchain@v1
-      #   with:
-      #     profile: minimal
-      #     toolchain: nightly-2020-06-04
-      #     components: rust-src
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly-2020-06-04
+          components: rust-src
       - name: Install QEMU
         run: |
           sudo apt update
