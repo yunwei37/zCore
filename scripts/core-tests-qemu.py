@@ -43,13 +43,19 @@ def qcow2_duplication(num):
     if not os.path.exists("../zCore/target/x86_64/release/disk/"):
         print("disk 文件夹不存在")
         os.system("mkdir ../zCore/target/x86_64/release/disk/")
+        print("disk 创建完毕")
+    print("qcow2 copying...")
     for i in range(0,PREBATCH):
         for j in range(0,num):
             os.system("cp "+IMG+" ../zCore/target/x86_64/release/disk/disk"+str(i)+"_"+str(j)+".qcow2")
+    print("qcow2 copying...finished")
 
 def esp_duplication(num):
+    print("esp copying...")
     for i in range(0,num):
         os.system("cp -r "+ESP+" ../zCore/target/x86_64/release/esp"+str(i))
+    
+    print("esp copying...finished")
 
 def running(index_num,line):
     line = line.strip()
@@ -103,7 +109,7 @@ esp_duplication(PROCESSES)
 
 pool = multiprocessing.Pool(processes = PROCESSES)
 start = time.time() 
-
+print("开始计时")
 for (n,line) in enumerate(lines):
     if line.startswith('#') or line.startswith('\n'):
         continue
