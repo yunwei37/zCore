@@ -14,7 +14,7 @@ CHECK_FILE = 'test-check-passed.txt'
 TEST_CASE_FILE = 'testcases.txt'
 ALL_CASES = 'all-test-cases.txt'
 
-PROCESSES = 10
+PROCESSES = 2
 PREBATCH = 3
 
 IMG = '../zCore/target/x86_64/release/disk.qcow2'
@@ -108,6 +108,7 @@ qcow2_duplication(PROCESSES)
 esp_duplication(PROCESSES)
 
 pool = multiprocessing.Pool(processes = PROCESSES)
+print("开启进程池,数目:",PROCESSES)
 start = time.time() 
 print("开始计时")
 for (n,line) in enumerate(lines):
