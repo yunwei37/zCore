@@ -42,7 +42,16 @@ def compare_diff():
                             f.write("------------------------------------------------\n")
                             for case in diff_set:
                                 f.write(case.strip() + "    测试后更新为此\n")
-                            f.write('当前总共 '+str(len(curr_set))+'个测例 \n新增 测试 : '+str(len(curr_set)-len(last_set))+'\n变化测例 : '+str(len(diff_set)))
+                            f.write('当前总共 '+str(len(curr_set))+'个测例 \n新增 测试 : '+str(len(curr_set)-len(last_set))+'\n变化测例 : '+str(len(diff_set))+"\n")
+
+                            pass_num = os.popen("grep PASSED "+DIFF_FILE+" | wc -l ").read()
+                            fail_num = os.popen("grep FAILED "+DIFF_FILE+" | wc -l ").read()
+                            timeout_num = os.popen("grep TIMEOUT "+DIFF_FILE+" | wc -l ").read()
+
+                            f.write("\n")
+                            f.write("PASSED : "+pass_num)
+                            f.write("FAILED : "+fail_num)
+                            f.write("TIMEOUT : "+timeout_num)
 
                     TEMP_DIFF = '../../diff/diff'+str(datetime.now().strftime("%Y-%m-%d-%H:%M:%S"))+'.txt'
                     os.system('mv diff.txt '+TEMP_DIFF)
