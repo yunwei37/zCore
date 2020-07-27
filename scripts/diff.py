@@ -98,7 +98,6 @@ def send_mail(file_name):
     # mail_host='smtp.163.com'
     # mail_user='cx734536637@163.com'    #用户名
     # mail_pass='MSJHKKZZOYNLQRWN'   #口令 
-    # 网易 MSJHKKZZOYNLQRWN
 
     
     smtpObj = smtplib.SMTP()
