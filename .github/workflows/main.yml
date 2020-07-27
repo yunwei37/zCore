@@ -110,38 +110,38 @@ jobs:
         with:
           command: bench
 
-  core-test:
-    # runs-on: [self-hosted,local-qemu]
-    runs-on: ubuntu-20.04
-    # runs-on: [self-hosted,ARM64]
-    # runs-on: [self-hosted,docker]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Pull prebuilt images
-        run: |
-          git lfs pull -X prebuilt/zircon/x64/bringup.zbi
-      - name: Checkout submodules
-        shell: bash
-        run: |
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-          git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: nightly-2020-06-04
-          components: rust-src
-      - name: Install QEMU
-        run: |
-          sudo apt update
-          sudo apt install qemu-system-x86 -y
-      - name: Build zCore
-        run: |
-          cd zCore
-          make build-test mode=release
-          cd ..
-      - name: Run core-tests
-        run: |
-          cd scripts
-          pip3 install pexpect -i https://pypi.tuna.tsinghua.edu.cn/simple/
-          python3 core-tests-qemu.py
+  # core-test:
+  #   # runs-on: [self-hosted,local-qemu]
+  #   runs-on: ubuntu-20.04
+  #   # runs-on: [self-hosted,ARM64]
+  #   # runs-on: [self-hosted,docker]
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Pull prebuilt images
+  #       run: |
+  #         git lfs pull -X prebuilt/zircon/x64/bringup.zbi
+  #     - name: Checkout submodules
+  #       shell: bash
+  #       run: |
+  #         auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+  #         git submodule sync --recursive
+  #         git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+  #     - uses: actions-rs/toolchain@v1
+  #       with:
+  #         profile: minimal
+  #         toolchain: nightly-2020-06-04
+  #         components: rust-src
+  #     - name: Install QEMU
+  #       run: |
+  #         sudo apt update
+  #         sudo apt install qemu-system-x86 -y
+  #     - name: Build zCore
+  #       run: |
+  #         cd zCore
+  #         make build-test mode=release
+  #         cd ..
+  #     - name: Run core-tests
+  #       run: |
+  #         cd scripts
+  #         pip3 install pexpect -i https://pypi.tuna.tsinghua.edu.cn/simple/
+  #         python3 core-tests-qemu.py
