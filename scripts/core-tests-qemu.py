@@ -14,7 +14,7 @@ CHECK_FILE = 'test-check-passed.txt'
 TEST_CASE_FILE = 'testcases.txt'
 ALL_CASES = 'all-test-cases.txt'
 
-PROCESSES = 2
+PROCESSES = 5
 PREBATCH = 3
 
 IMG = '../zCore/target/x86_64/release/disk.qcow2'
